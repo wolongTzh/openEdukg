@@ -75,7 +75,7 @@ public class OpenApiController {
     @ApiOperation(value = "实体搜索接口", notes = "实体搜索接口", httpMethod = "GET")
     @RequestMapping(value = "instanceList", method = RequestMethod.GET)
     @SystemControllerLog(description = "实体搜索接口")
-    @LimitRequest()
+//    @LimitRequest()
     public Response<JSONArray> instanceList(HttpServletRequest request,
                                             @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchKey") String searchKey,
                                             @ApiParam(value = "请选择学科", defaultValue = "chinese", required = true, allowableValues = "chinese,english,math,physics,chemistry,biology,politics,geo,history") @RequestParam("course") String subject) throws IOException {
