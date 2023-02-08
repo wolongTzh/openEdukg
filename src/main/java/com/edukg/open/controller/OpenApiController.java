@@ -78,7 +78,7 @@ public class OpenApiController {
     public Response<JSONArray> instanceList(HttpServletRequest request,
                                             @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchKey") String searchKey,
                                             @ApiParam(value = "请选择学科", defaultValue = "chinese", required = true, allowableValues = "chinese,english,math,physics,chemistry,biology,politics,geo,history") @RequestParam("course") String subject) throws IOException {
-        checkSession(request);
+//        checkSession(request);
         LOG.info("请求接口记录 - /instanceList -");
         LOG.info(new Date().toString());
         String apiPath = "/api/graph/findInstanceByName?searchText=" + searchKey;
