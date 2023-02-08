@@ -69,6 +69,7 @@ public class ShiroConfig extends FormAuthenticationFilter {
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //配置不登录可以访问的资源，anon 表示资源都可以匿名访问
         filterChainDefinitionMap.put("/api/wiki/**", "anon");
+        filterChainDefinitionMap.put("/api/open/**", "anon");
         filterChainDefinitionMap.put("/swagger-ui.html/**", "anon");
         filterChainDefinitionMap.put("/swagger-*/**", "anon");
 
