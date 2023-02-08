@@ -83,7 +83,7 @@ public class OpenApiController {
         LOG.info("请求接口记录 - /instanceList -");
         LOG.info(new Date().toString());
         String apiPath = "/api/graph/findInstanceByName?searchText=" + searchKey;
-        String body = HttpUtil.sendGetData(baseUrl + ":8082" + apiPath);
+        String body = HttpUtil.sendGetData(baseUrl + ":8081" + apiPath);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             if (jsonObject.get("data") != null) {
@@ -116,7 +116,7 @@ public class OpenApiController {
         LOG.info("请求接口记录 - /infoByInstanceName -");
         LOG.info(new Date().toString());
         String apiPath = "/api/wiki/infoByInstanceName?name=" + name + "&subject=" + subject;
-        String body = HttpUtil.sendGetData(baseUrl + ":8081" + apiPath);
+        String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
 //        String body = HttpUtil.sendGetData(serverPath8001 + apiPath);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
