@@ -37,6 +37,7 @@ public class LimitRequestAspect {
         //读取session中的用户
         UserInfo user = (UserInfo) session.getAttribute("user");
         if (user == null) {
+            System.out.println("LimitRequestAspect!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             throw new BusinessException(-1, "请先登录");
         }
 

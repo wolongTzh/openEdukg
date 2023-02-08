@@ -158,6 +158,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserInfo thisUser = (UserInfo) session.getAttribute("user");
         if (thisUser == null) {
+            System.out.println("UserController!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             throw new BusinessException(-1, "请先登录");
         }
         return thisUser;

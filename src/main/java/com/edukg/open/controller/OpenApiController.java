@@ -54,7 +54,7 @@ public class OpenApiController {
 
     private void checkSession(HttpServletRequest request) {
         if (request.getSession().getAttribute("user") == null) {
-            System.out.println("here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("OpenApiController!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             throw new BusinessException(-1, "请先登录");
         }
     }
