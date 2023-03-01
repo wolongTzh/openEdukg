@@ -79,7 +79,7 @@ public class GraphController {
     @ApiOperation(value = "实体详情获取接口", notes = "实体详情获取接口", httpMethod = "GET")
     @RequestMapping(value = "getInstanceInfo", method = RequestMethod.GET)
     @SystemControllerLog(description = "实体详情获取接口")
-    @LimitRequest()
+//    @LimitRequest()
     public Response<JSONObject> getInstanceInfo(HttpServletRequest request,
                                             @ApiParam(value = "请输入uri", required = true) @RequestParam("uri") String uri) throws IOException {
 //        checkSession(request);
