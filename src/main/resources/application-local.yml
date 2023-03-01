@@ -93,7 +93,7 @@ shiro:
     sessionIdUrlRewritingEnabled: true
 
 base:
-  url: http://47.94.201.245
+  url: http://127.0.0.1
 emay:
   appId: API-MON-SMS-C27A3
   secretKey: 97d1d886709f4189
