@@ -12,10 +12,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -169,7 +166,7 @@ public class GraphController {
     @SystemControllerLog(description = "最短路径查询接口")
     @LimitRequest()
     public Response<JSONArray> findPath(HttpServletRequest request,
-                                  @ApiParam(value = "请输入问题", required = true) @RequestParam("instanceList") List<String> instanceList) throws IOException {
+                                  @ApiParam(value = "请输入问题", required = true) @RequestBody List<String> instanceList) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /findPath -");
         log.info(new Date().toString());
