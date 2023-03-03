@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edukg.open.base.Response;
 import com.edukg.open.config.LimitRequest;
 import com.edukg.open.config.SystemControllerLog;
+import com.edukg.open.model.SearchSubgraphParam;
 import com.edukg.open.util.HttpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -157,22 +159,22 @@ public class GraphController {
      * 5.最短路径查询接口  http://39.97.172.123:8081/api/graph/findPath
      *
      * @param request
-     * @param instanceList
+     * @param param
      * @return
      * @throws IOException
      */
     @ApiOperation(value = "最短路径查询接口", notes = "最短路径查询接口", httpMethod = "POST")
     @RequestMapping(value = "findPath", method = RequestMethod.POST)
     @SystemControllerLog(description = "最短路径查询接口")
-    @LimitRequest()
+//    @LimitRequest()
     public Response<JSONArray> findPath(HttpServletRequest request,
-                                  @ApiParam(value = "请输入问题", required = true) @RequestBody List<String> instanceList) throws IOException {
+                                  @ApiParam(value = "请输入问题", required = true) @RequestBody SearchSubgraphParam param) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /findPath -");
         log.info(new Date().toString());
         String apiPath = "/api/graph/findPath";
         JSONObject json = new JSONObject();
-        json.put("instanceList", instanceList);
+        json.put("instanceList", param.getInstanceList());
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8081" + apiPath , JSONObject.toJSONString(json));
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
