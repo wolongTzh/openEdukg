@@ -52,7 +52,7 @@ public class ResourceController {
      */
     @ApiOperation(value = "试题资源列表获取接口", notes = "试题资源列表获取接口", httpMethod = "GET")
     @RequestMapping(value = "findQuestion", method = RequestMethod.GET)
-    @SystemControllerLog(description = "试题资源列表获取接口")
+//    @SystemControllerLog(description = "试题资源列表获取接口")
     @LimitRequest()
     public Response<JSONObject> findQuestion(HttpServletRequest request,
                                                   @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchText") String searchText,
@@ -85,7 +85,7 @@ public class ResourceController {
      */
     @ApiOperation(value = "电子书资源列表获取接口", notes = "电子书资源列表获取接口", httpMethod = "GET")
     @RequestMapping(value = "findBook", method = RequestMethod.GET)
-    @SystemControllerLog(description = "电子书资源列表获取接口")
+//    @SystemControllerLog(description = "电子书资源列表获取接口")
     @LimitRequest()
     public Response<JSONObject> findBook(HttpServletRequest request,
                                                   @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchText") String searchText,
@@ -118,7 +118,7 @@ public class ResourceController {
      */
     @ApiOperation(value = "电子书内容获取接口", notes = "电子书内容获取接口", httpMethod = "GET")
     @RequestMapping(value = "getBookData", method = RequestMethod.GET)
-    @SystemControllerLog(description = "电子书内容获取接口")
+//    @SystemControllerLog(description = "电子书内容获取接口")
     @LimitRequest()
     public Response<JSONObject> getBookData(HttpServletRequest request,
                                         @ApiParam(value = "请输入章节id", required = true) @RequestParam("chapterId") String chapterId) throws IOException {
@@ -146,7 +146,7 @@ public class ResourceController {
      */
     @ApiOperation(value = "课程资源实体匹配接口", notes = "课程资源实体匹配接口", httpMethod = "GET")
     @RequestMapping(value = "findCourse", method = RequestMethod.GET)
-    @SystemControllerLog(description = "课程资源实体匹配接口")
+//    @SystemControllerLog(description = "课程资源实体匹配接口")
     @LimitRequest()
     public Response<JSONArray> findCourse(HttpServletRequest request,
                                         @ApiParam(value = "请输入uri", required = true) @RequestParam("uri") String uri) throws IOException {

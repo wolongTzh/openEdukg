@@ -49,7 +49,7 @@ public class GraphController {
      */
     @ApiOperation(value = "实体名称搜索接口", notes = "实体名称搜索接口", httpMethod = "GET")
     @RequestMapping(value = "findInstanceByName", method = RequestMethod.GET)
-    @SystemControllerLog(description = "实体名称搜索接口")
+//    @SystemControllerLog(description = "实体名称搜索接口")
     @LimitRequest()
     public Response<JSONArray> findInstanceByName(HttpServletRequest request,
                                             @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchText") String searchText) throws IOException {
@@ -77,8 +77,8 @@ public class GraphController {
      */
     @ApiOperation(value = "实体详情获取接口", notes = "实体详情获取接口", httpMethod = "GET")
     @RequestMapping(value = "getInstanceInfo", method = RequestMethod.GET)
-    @SystemControllerLog(description = "实体详情获取接口")
-//    @LimitRequest()
+//    @SystemControllerLog(description = "实体详情获取接口")
+    @LimitRequest()
     public Response<JSONObject> getInstanceInfo(HttpServletRequest request,
                                             @ApiParam(value = "请输入uri", required = true) @RequestParam("uri") String uri) throws IOException {
 //        checkSession(request);
@@ -105,7 +105,7 @@ public class GraphController {
      */
     @ApiOperation(value = "知识链接（实体识别）接口", notes = "知识链接（实体识别）接口", httpMethod = "POST")
     @RequestMapping(value = "instanceLinking", method = RequestMethod.POST)
-    @SystemControllerLog(description = "知识链接（实体识别）接口")
+//    @SystemControllerLog(description = "知识链接（实体识别）接口")
     @LimitRequest()
     public Response<JSONArray> instanceLinking(HttpServletRequest request,
                                                @ApiParam(value = "请输入文本段", required = true) @RequestParam("searchText") String searchText) throws IOException {
@@ -135,7 +135,7 @@ public class GraphController {
      */
     @ApiOperation(value = "问答接口", notes = "问答接口", httpMethod = "POST")
     @RequestMapping(value = "qa", method = RequestMethod.POST)
-    @SystemControllerLog(description = "问答接口")
+//    @SystemControllerLog(description = "问答接口")
     @LimitRequest()
     public Response<JSONObject> qa(HttpServletRequest request,
                                                @ApiParam(value = "请输入问题", required = true) @RequestParam("question") String question) throws IOException {
@@ -165,7 +165,7 @@ public class GraphController {
      */
     @ApiOperation(value = "最短路径查询接口", notes = "最短路径查询接口", httpMethod = "POST")
     @RequestMapping(value = "findPath", method = RequestMethod.POST)
-    @SystemControllerLog(description = "最短路径查询接口")
+//    @SystemControllerLog(description = "最短路径查询接口")
 //    @LimitRequest()
     public Response<JSONArray> findPath(HttpServletRequest request,
                                   @ApiParam(value = "请输入问题", required = true) @RequestBody SearchSubgraphParam param) throws IOException {
