@@ -1,5 +1,6 @@
 package com.edukg.open.config;
 
+import com.alibaba.fastjson.JSON;
 import com.edukg.open.base.BusinessException;
 import com.edukg.open.base.UserStatusEnum;
 import com.edukg.open.user.entity.UserInfo;
@@ -36,6 +37,7 @@ public class LimitRequestAspect {
         HttpSession session = request.getSession();
         //读取session中的用户
         UserInfo user = (UserInfo) session.getAttribute("user");
+        System.out.println(JSON.toJSONString(user));
         if (user == null) {
             System.out.println("LimitRequestAspect!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             throw new BusinessException(-1, "请先登录");
