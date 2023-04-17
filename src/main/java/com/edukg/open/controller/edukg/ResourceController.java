@@ -53,7 +53,7 @@ public class ResourceController {
     @ApiOperation(value = "试题资源列表获取接口", notes = "试题资源列表获取接口", httpMethod = "GET")
     @RequestMapping(value = "findQuestion", method = RequestMethod.GET)
 //    @SystemControllerLog(description = "试题资源列表获取接口")
-    @LimitRequest()
+    @LimitRequest(loginPrompt = "登录以查看更多试题资源")
     public Response<JSONObject> findQuestion(HttpServletRequest request,
                                                   @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchText") String searchText,
                                                   @ApiParam(value = "请输入searchText的类型", required = true) @RequestParam("type") String type,
@@ -86,7 +86,7 @@ public class ResourceController {
     @ApiOperation(value = "电子书资源列表获取接口", notes = "电子书资源列表获取接口", httpMethod = "GET")
     @RequestMapping(value = "findBook", method = RequestMethod.GET)
 //    @SystemControllerLog(description = "电子书资源列表获取接口")
-    @LimitRequest()
+    @LimitRequest(loginPrompt = "登录以查看更多教材资源")
     public Response<JSONObject> findBook(HttpServletRequest request,
                                                   @ApiParam(value = "请输入关键字", required = true) @RequestParam("searchText") String searchText,
                                                   @ApiParam(value = "请输入searchText的类型", required = true) @RequestParam("type") String type,

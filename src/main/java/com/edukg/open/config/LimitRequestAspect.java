@@ -40,7 +40,7 @@ public class LimitRequestAspect {
         System.out.println(JSON.toJSONString(user));
         if (user == null) {
             System.out.println("LimitRequestAspect!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            throw new BusinessException(-1, "请先登录");
+            throw new BusinessException(-1, limitRequest.loginPrompt());
         }
 
         if (user.getUserStatus().equals(UserStatusEnum.ADMIN.code)) {

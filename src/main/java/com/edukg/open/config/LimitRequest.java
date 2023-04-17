@@ -9,4 +9,6 @@ public @interface LimitRequest {
     long time() default 60 * 24; // 限制时间 单位：分钟
 
     int count() default 200; // 允许请求的次数
+
+    String loginPrompt() default "请先登录";
 }
