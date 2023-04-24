@@ -41,7 +41,7 @@ public class SystemLogAspect {
      * @date 2018年9月3日 10:38
      */
 
-//    @Before("controllerAspect()")
+    @Before("controllerAspect()")
     public void doBefore(JoinPoint joinPoint) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpSession session = request.getSession();
