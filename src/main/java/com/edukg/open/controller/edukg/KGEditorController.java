@@ -36,7 +36,7 @@ import java.util.Date;
 @Api(tags = "edukg 后端服务转发")
 public class KGEditorController {
 
-    @Value("${base.url}")
+    @Value("${base.kgeditor}")
     private String baseUrl;
 
     /**
