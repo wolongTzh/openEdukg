@@ -62,12 +62,12 @@ public class KGEditorController {
         log.info(new Date().toString());
         String apiPath = "/extract/create_task/";
         JSONObject json = new JSONObject();
-        json.put("file", file);
         json.put("name", name);
         json.put("userId", userId);
         json.put("catalogBeginPage", catalogBeginPage);
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
+        json.put("file", file);
         String body = HttpUtil.sendPostDataByJsonWithFile(baseUrl + ":8001" + apiPath, json);
         log.info("body = " + body);
         try {
