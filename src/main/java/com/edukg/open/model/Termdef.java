@@ -17,7 +17,7 @@ public class Termdef {
 
     String content;
 
-    List<String> termdef;
+    List<List<String>> termdef;
 
     List<Termdef> children;
 
