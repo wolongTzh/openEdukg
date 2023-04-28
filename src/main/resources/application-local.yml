@@ -1,14 +1,12 @@
 server:
   port: 8003
-  maxHttpHeaderSize: 8KB
-  tomcat:
-    maxHttpFormPostSize: 200MB
-    maxSwallowSize: 200MB
-    maxConnections: 2000
 logging:
   config: classpath:config/logback-spring.xml
 #数据源
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1024MB
   aop:
     proxy-target-class: true
   profiles:
