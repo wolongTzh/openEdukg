@@ -50,7 +50,7 @@ public class KGEditorController {
     @ApiOperation(value = "创建任务接口", notes = "创建任务接口", httpMethod = "POST")
     @RequestMapping(value = "createTask", method = RequestMethod.POST)
     @SystemControllerLog(description = "创建任务接口")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<JSONObject> createTask(HttpServletRequest request,
                                            @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
                                                @ApiParam(value = "请上传文件", required = true) @RequestParam("file") MultipartFile file,
@@ -90,7 +90,7 @@ public class KGEditorController {
     @ApiOperation(value = "获取任务列表", notes = "获取任务列表", httpMethod = "GET")
     @RequestMapping(value = "getTaskList", method = RequestMethod.GET)
     @SystemControllerLog(description = "获取任务列表")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<JSONObject> getTaskList(HttpServletRequest request,
                                            @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId) throws IOException {
 //        checkSession(request);
@@ -120,7 +120,7 @@ public class KGEditorController {
     @ApiOperation(value = "获取课本解析结果", notes = "获取课本解析结果", httpMethod = "GET")
     @RequestMapping(value = "getPartition", method = RequestMethod.GET)
     @SystemControllerLog(description = "获取课本解析结果")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<JSONObject> getPartition(HttpServletRequest request,
                                             @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
                                              @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
@@ -151,7 +151,7 @@ public class KGEditorController {
     @ApiOperation(value = "保存课本解析结果，用于校对", notes = "保存课本解析结果，用于校对", httpMethod = "POST")
     @RequestMapping(value = "savePartition", method = RequestMethod.POST)
     @SystemControllerLog(description = "保存课本解析结果，用于校对")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<JSONObject> savePartition(HttpServletRequest request,
                                               @ApiParam(value = "请输入用户id", required = true) @RequestBody savePartitionParam param) throws IOException {
 //        checkSession(request);
@@ -185,7 +185,7 @@ public class KGEditorController {
     @ApiOperation(value = "开始抽取", notes = "开始抽取", httpMethod = "POST")
     @RequestMapping(value = "startExtraction", method = RequestMethod.POST)
     @SystemControllerLog(description = "开始抽取")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<String> startExtraction(HttpServletRequest request,
                                             @ApiParam(value = "请输入用户id", required = true) @RequestBody StartExtractionParam param) throws IOException {
 //        checkSession(request);
@@ -218,7 +218,7 @@ public class KGEditorController {
     @ApiOperation(value = "获取构建的图谱", notes = "获取构建的图谱", httpMethod = "GET")
     @RequestMapping(value = "getGraph", method = RequestMethod.GET)
     @SystemControllerLog(description = "获取构建的图谱")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<JSONObject> getGraph(HttpServletRequest request,
                                              @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
                                              @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
@@ -249,7 +249,7 @@ public class KGEditorController {
     @ApiOperation(value = "保存图谱，用于校对", notes = "保存图谱，用于校对", httpMethod = "POST")
     @RequestMapping(value = "saveGraph", method = RequestMethod.POST)
     @SystemControllerLog(description = "保存图谱，用于校对")
-//    @LimitRequest()
+    @LimitRequest()
     public Response<String> saveGraph(HttpServletRequest request,
                                       @ApiParam(value = "请输入用户id", required = true) @RequestBody SaveGraphParam param) throws IOException {
 //        checkSession(request);
