@@ -1,9 +1,10 @@
-http:
-  multipart:
-    max-file-size: 200Mb
-    max-request-size: 200Mb
 server:
   port: 8003
+  maxHttpHeaderSize: 8KB
+  tomcat:
+    maxHttpFormPostSize: 200MB
+    maxSwallowSize: 200MB
+    maxConnections: 2000
 logging:
   config: classpath:config/logback-spring.xml
 #数据源
