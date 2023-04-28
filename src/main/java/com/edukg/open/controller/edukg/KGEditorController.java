@@ -122,6 +122,8 @@ public class KGEditorController {
                                              @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /getPartition -");
+        log.info("userId = " + userId);
+        log.info("taskId = " + id);
         log.info(new Date().toString());
         String apiPath = "/extract/get_partition?userId=" + userId + "&id=" + id;
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
@@ -214,6 +216,8 @@ public class KGEditorController {
                                              @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /getGraph -");
+        log.info("userId = " + userId);
+        log.info("taskId = " + id);
         log.info(new Date().toString());
         String apiPath = "/extract/get_graph?userId=" + userId + "&id=" + id;
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
