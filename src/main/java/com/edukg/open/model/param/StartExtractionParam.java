@@ -13,5 +13,5 @@ import lombok.Data;
 public class StartExtractionParam {
     String userId;
 
-    String id;
+    String taskId;
 }

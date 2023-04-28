@@ -190,7 +190,7 @@ public class KGEditorController {
         String apiPath = "/extract/start_extraction/";
         JSONObject json = new JSONObject();
         json.put("userId", param.getUserId());
-        json.put("id", param.getId());
+        json.put("id", param.getTaskId());
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
         try {
