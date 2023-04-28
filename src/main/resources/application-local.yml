@@ -7,6 +7,7 @@ spring:
   servlet:
     multipart:
       max-file-size: 1024MB
+      max-request-size: 1024MB
   aop:
     proxy-target-class: true
   profiles:
