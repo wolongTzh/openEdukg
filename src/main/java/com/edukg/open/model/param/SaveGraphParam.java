@@ -3,6 +3,8 @@ package com.edukg.open.model.param;
 import com.edukg.open.model.Termdef;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * 教材构建图谱所需保存图谱参数
  *
@@ -17,5 +19,5 @@ public class SaveGraphParam {
 
     String taskId;
 
-    Termdef termdef;
+    List<Termdef> termdef;
 }
