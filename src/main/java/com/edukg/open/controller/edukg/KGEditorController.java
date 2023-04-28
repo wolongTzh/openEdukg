@@ -130,7 +130,7 @@ public class KGEditorController {
         String apiPath = "/extract/get_partition?userId=" + userId + "&id=" + id;
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
-        log.info("body = " + body);
+//        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("data"));
@@ -228,7 +228,7 @@ public class KGEditorController {
         String apiPath = "/extract/get_graph?userId=" + userId + "&id=" + id;
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
-        log.info("body = " + body);
+//        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("data"));
