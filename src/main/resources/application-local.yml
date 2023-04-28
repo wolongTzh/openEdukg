@@ -4,6 +4,10 @@ logging:
   config: classpath:config/logback-spring.xml
 #数据源
 spring:
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
   aop:
     proxy-target-class: true
   profiles:
