@@ -67,7 +67,9 @@ public class KGEditorController {
         json.put("userId", userId);
         json.put("catalogBeginPage", catalogBeginPage);
         json.put("catalogEndPage", catalogEndPage);
+        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJsonWithFile(baseUrl + ":8001" + apiPath, json);
+        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("data"));
@@ -95,7 +97,9 @@ public class KGEditorController {
         log.info("请求接口记录 - /getTaskList -");
         log.info(new Date().toString());
         String apiPath = "/extract/get_task_list?userId=" + userId;
+        log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
+        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("data"));
@@ -122,10 +126,9 @@ public class KGEditorController {
                                              @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /getPartition -");
-        log.info("userId = " + userId);
-        log.info("taskId = " + id);
         log.info(new Date().toString());
         String apiPath = "/extract/get_partition?userId=" + userId + "&id=" + id;
+        log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
         log.info("body = " + body);
         try {
@@ -159,6 +162,7 @@ public class KGEditorController {
         json.put("userId", param.getUserId());
         json.put("id", param.getTaskId());
         json.put("partition", param.getPartition());
+        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
         try {
@@ -191,6 +195,7 @@ public class KGEditorController {
         JSONObject json = new JSONObject();
         json.put("userId", param.getUserId());
         json.put("id", param.getTaskId());
+        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
         try {
@@ -219,10 +224,9 @@ public class KGEditorController {
                                              @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /getGraph -");
-        log.info("userId = " + userId);
-        log.info("taskId = " + id);
         log.info(new Date().toString());
         String apiPath = "/extract/get_graph?userId=" + userId + "&id=" + id;
+        log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
         log.info("body = " + body);
         try {
@@ -256,6 +260,7 @@ public class KGEditorController {
         json.put("userId", param.getUserId());
         json.put("id", param.getTaskId());
         json.put("termdef", param.getTermdef());
+        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
         try {
