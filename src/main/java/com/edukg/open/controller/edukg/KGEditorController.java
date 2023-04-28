@@ -52,7 +52,7 @@ public class KGEditorController {
     @SystemControllerLog(description = "创建任务接口")
 //    @LimitRequest()
     public Response<JSONObject> createTask(HttpServletRequest request,
-                                           @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
+//                                           @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
                                                @ApiParam(value = "请上传文件", required = true) @RequestParam("file") MultipartFile file,
                                           @ApiParam(value = "请输入文件名称", required = true) @RequestParam("name") String name,
                                           @ApiParam(value = "请目录起始页码", required = true) @RequestParam("catalogBeginPage") int catalogBeginPage,
@@ -63,7 +63,7 @@ public class KGEditorController {
         String apiPath = "/extract/create_task/";
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("userId", userId);
+        json.put("userId", "13651370684");
         json.put("catalogBeginPage", catalogBeginPage);
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
