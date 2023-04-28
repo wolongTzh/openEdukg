@@ -130,7 +130,7 @@ public class KGEditorController {
         String apiPath = "/extract/get_partition?userId=" + userId + "&id=" + id;
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
-        log.info("body = " + body);
+//        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("data"));
@@ -161,7 +161,7 @@ public class KGEditorController {
         JSONObject json = new JSONObject();
         json.put("userId", param.getUserId());
         json.put("id", param.getTaskId());
-        json.put("partition", param.getPartition());
+//        json.put("partition", param.getPartition());
         log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
@@ -228,7 +228,7 @@ public class KGEditorController {
         String apiPath = "/extract/get_graph?userId=" + userId + "&id=" + id;
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
-        log.info("body = " + body);
+//        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("data"));
@@ -260,7 +260,7 @@ public class KGEditorController {
         json.put("userId", param.getUserId());
         json.put("id", param.getTaskId());
         json.put("termdef", param.getTermdef());
-        log.info("json = " + JSONObject.toJSONString(json));
+//        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
         try {
