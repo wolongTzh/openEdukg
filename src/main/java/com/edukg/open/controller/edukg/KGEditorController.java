@@ -119,7 +119,7 @@ public class KGEditorController {
 //    @LimitRequest()
     public Response<JSONObject> getPartition(HttpServletRequest request,
                                             @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
-                                             @ApiParam(value = "请输入任务id", required = true) @RequestParam("id") String id) throws IOException {
+                                             @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /getPartition -");
         log.info(new Date().toString());
@@ -211,7 +211,7 @@ public class KGEditorController {
 //    @LimitRequest()
     public Response<JSONObject> getGraph(HttpServletRequest request,
                                              @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
-                                             @ApiParam(value = "请输入任务id", required = true) @RequestParam("id") String id) throws IOException {
+                                             @ApiParam(value = "请输入任务id", required = true) @RequestParam("taskId") String id) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /getGraph -");
         log.info(new Date().toString());
