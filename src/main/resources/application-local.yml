@@ -1,3 +1,7 @@
+http:
+  multipart:
+    max-file-size: 200Mb
+    max-request-size: 200Mb
 server:
   port: 8003
 logging:
