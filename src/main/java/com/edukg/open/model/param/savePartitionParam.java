@@ -17,7 +17,7 @@ public class savePartitionParam {
 
     String userId;
 
-    String id;
+    String taskId;
 
     List<Partition> partition;
 }

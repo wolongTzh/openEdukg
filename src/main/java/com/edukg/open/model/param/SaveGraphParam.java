@@ -15,7 +15,7 @@ public class SaveGraphParam {
 
     String userId;
 
-    String id;
+    String taskId;
 
     Termdef termdef;
 }
