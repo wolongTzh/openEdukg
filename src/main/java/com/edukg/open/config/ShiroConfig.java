@@ -283,7 +283,7 @@ public class ShiroConfig extends FormAuthenticationFilter {
         sessionManager.setCacheManager(ehCacheManager());
 
         //全局会话超时时间（单位毫秒），默认30分钟  暂时设置为10秒钟 用来测试
-        sessionManager.setGlobalSessionTimeout(10000);
+        sessionManager.setGlobalSessionTimeout(1800000);
         //是否开启删除无效的session对象  默认为true
         sessionManager.setDeleteInvalidSessions(true);
         //是否开启定时调度器进行检测过期session 默认为true
@@ -291,7 +291,7 @@ public class ShiroConfig extends FormAuthenticationFilter {
         //设置session失效的扫描时间, 清理用户直接关闭浏览器造成的孤立会话 默认为 1个小时
         //设置该属性 就不需要设置 ExecutorServiceSessionValidationScheduler 底层也是默认自动调用ExecutorServiceSessionValidationScheduler
         //暂时设置为 5秒 用来测试
-        sessionManager.setSessionValidationInterval(5000);
+        sessionManager.setSessionValidationInterval(900000);
 
         //取消url 后面的 JSESSIONID
         sessionManager.setSessionIdUrlRewritingEnabled(false);
