@@ -56,7 +56,7 @@ public class KGEditorController {
                                            @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
                                            @ApiParam(value = "请上传文件", required = true) @RequestParam("file") MultipartFile file,
                                            @ApiParam(value = "请输入文件名称", required = true) @RequestParam("name") String name,
-                                           @ApiParam(value = "资源格式", required = true) @RequestParam("name") String resourceType,
+                                           @ApiParam(value = "资源格式", required = true) @RequestParam("resourceType") String resourceType,
                                            @ApiParam(value = "请目录起始页码", required = true) @RequestParam("catalogBeginPage") int catalogBeginPage,
                                            @ApiParam(value = "请目录终止页码", required = true) @RequestParam("catalogEndPage") int catalogEndPage) throws IOException {
 //        checkSession(request);
