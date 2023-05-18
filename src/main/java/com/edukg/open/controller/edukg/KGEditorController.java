@@ -1,6 +1,7 @@
 package com.edukg.open.controller.edukg;
 
 import com.alibaba.fastjson.JSONObject;
+import com.edukg.open.base.BusinessException;
 import com.edukg.open.base.Response;
 import com.edukg.open.config.LimitRequest;
 import com.edukg.open.config.SystemControllerLog;
@@ -55,6 +56,7 @@ public class KGEditorController {
                                            @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
                                            @ApiParam(value = "请上传文件", required = true) @RequestParam("file") MultipartFile file,
                                            @ApiParam(value = "请输入文件名称", required = true) @RequestParam("name") String name,
+                                           @ApiParam(value = "资源格式", required = true) @RequestParam("name") String resourceType,
                                            @ApiParam(value = "请目录起始页码", required = true) @RequestParam("catalogBeginPage") int catalogBeginPage,
                                            @ApiParam(value = "请目录终止页码", required = true) @RequestParam("catalogEndPage") int catalogEndPage) throws IOException {
 //        checkSession(request);
@@ -62,8 +64,12 @@ public class KGEditorController {
         log.info(new Date().toString());
         String apiPath = "/extract/create_task/";
         JSONObject json = new JSONObject();
+        if(!(resourceType.equals("PDF") || resourceType.equals("EPUB"))) {
+            throw new BusinessException(-1, "资源格式不支持，请重试！");
+        }
         json.put("name", name);
         json.put("userId", userId);
+        json.put("resourceType", resourceType);
         json.put("catalogBeginPage", catalogBeginPage);
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
