@@ -100,14 +100,18 @@ public class UserController {
     public Response<String> login(@RequestParam("phone") String phone,
                                   @RequestParam("password") String password,
                                   HttpServletRequest request) {
+        System.out.println("phone = " + phone);
+        System.out.println("password = " + password);
         //添加用户认证信息
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(
                 phone,
                 Md5Util.getMD5String(phone + password));
-        //进行验证，这里可以捕获异常，然后返回对应信息
 
+        //进行验证，这里可以捕获异常，然后返回对应信息
+        System.out.println("tag 1");
         subject.login(usernamePasswordToken);
+        System.out.println("tag 2");
         //设置session
         HttpSession session = request.getSession();
         session.setAttribute("user", userService.findByPhone(phone));
