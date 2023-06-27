@@ -106,17 +106,14 @@ public class UserController {
                 phone,
                 Md5Util.getMD5String(phone + password));
         //进行验证，这里可以捕获异常，然后返回对应信息
-        try {
-            subject.login(usernamePasswordToken);
-            //设置session
-            HttpSession session = request.getSession();
-            session.setAttribute("user", userService.findByPhone(phone));
-            session.setMaxInactiveInterval(60 * 60 * 24 * 3);//以秒为单位
-            return Response.success("登录成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Response.error("-1", e.getMessage());
-        }
+
+        subject.login(usernamePasswordToken);
+        //设置session
+        HttpSession session = request.getSession();
+        session.setAttribute("user", userService.findByPhone(phone));
+        session.setMaxInactiveInterval(60 * 60 * 24 * 3);//以秒为单位
+        return Response.success("登录成功");
+
 
     }
 
