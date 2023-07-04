@@ -15,6 +15,16 @@ import com.edukg.open.util.HttpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +37,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -111,10 +119,48 @@ public class OpenApiController {
     @LimitRequest()
     public Response<JSONObject> infoByInstanceName(HttpServletRequest request,
                                                    @RequestParam("name") String name,
+                                                   String uri,
                                                    @ApiParam(value = "请选择学科", required = false, defaultValue = "chinese", allowableValues = "chinese,english,math,physics,chemistry,biology,politics,geo,history") @RequestParam("course") String subject) throws IOException {
         checkSession(request);
         LOG.info("请求接口记录 - /infoByInstanceName -");
         LOG.info(new Date().toString());
+        if (subject.equals("math")) {
+            JSONArray content = new JSONArray();
+            JSONArray property = new JSONArray();
+            HttpPost httpPost = new HttpPost("http://39.97.172.123:28090" + "/server/getInstGraph");
+            List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+            nvps.add(new BasicNameValuePair("uri", uri));
+            try {
+                CloseableHttpClient client = HttpClients.createDefault();
+                httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf8"));
+                CloseableHttpResponse response = client.execute(httpPost);
+                try {
+                    if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
+                        HttpEntity resEntity = response.getEntity();
+                        content = JSONArray.parseObject(EntityUtils.toString(resEntity)).getJSONArray("content");
+                    }
+                } finally {
+                    response.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String apiPath = "/api/wiki/infoByInstanceName?name=" + name + "&subject=" + subject;
+            String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
+//        String body = HttpUtil.sendGetData(serverPath8001 + apiPath);
+            try {
+                JSONObject jsonObject = JSONObject.parseObject(body);
+                if (jsonObject.get("data") != null) {
+                   property = jsonObject.getJSONObject("data").getJSONArray("property");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("content", content);
+            jsonObject.put("property", property);
+            return Response.success(jsonObject);
+        }
         String apiPath = "/api/wiki/infoByInstanceName?name=" + name + "&subject=" + subject;
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
 //        String body = HttpUtil.sendGetData(serverPath8001 + apiPath);
