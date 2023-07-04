@@ -127,14 +127,31 @@ public class OpenApiController {
         if (subject.equals("math")) {
             JSONArray content = new JSONArray();
             JSONArray property = new JSONArray();
-            String label = "";
-            HttpPost httpPost = new HttpPost("http://39.97.172.123:28090" + "/server/getInstGraph");
+            HttpPost httpPost = new HttpPost("http://39.97.172.123:28090" + "/server/getinstdetail");
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-            nvps.add(new BasicNameValuePair("uri", uri));
+            nvps.add(new BasicNameValuePair("inst", uri));
             try {
                 CloseableHttpClient client = HttpClients.createDefault();
                 httpPost.setEntity(new UrlEncodedFormEntity(nvps, "utf8"));
                 CloseableHttpResponse response = client.execute(httpPost);
+                try {
+                    if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
+                        HttpEntity resEntity = response.getEntity();
+                        property = JSONArray.parseObject(EntityUtils.toString(resEntity)).getJSONArray("property");
+                    }
+                } finally {
+                    response.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            HttpPost httpPost2 = new HttpPost("http://39.97.172.123:28090" + "/server/getInstGraph");
+            List<NameValuePair> nvps2 = new ArrayList<NameValuePair>();
+            nvps2.add(new BasicNameValuePair("uri", uri));
+            try {
+                CloseableHttpClient client = HttpClients.createDefault();
+                httpPost2.setEntity(new UrlEncodedFormEntity(nvps2, "utf8"));
+                CloseableHttpResponse response = client.execute(httpPost2);
                 try {
                     if (HttpStatus.SC_OK == response.getStatusLine().getStatusCode()) {
                         HttpEntity resEntity = response.getEntity();
@@ -146,22 +163,10 @@ public class OpenApiController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            String apiPath = "/api/wiki/infoByInstanceName?name=" + name + "&subject=" + subject;
-            String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
-//        String body = HttpUtil.sendGetData(serverPath8001 + apiPath);
-            try {
-                JSONObject jsonObject = JSONObject.parseObject(body);
-                if (jsonObject.get("data") != null) {
-                   property = jsonObject.getJSONObject("data").getJSONArray("property");
-                   label = jsonObject.getJSONObject("data").getString("label");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("content", content);
             jsonObject.put("property", property);
-            jsonObject.put("label", label);
+            jsonObject.put("label", name);
             return Response.success(jsonObject);
         }
         String apiPath = "/api/wiki/infoByInstanceName?name=" + name + "&subject=" + subject;
