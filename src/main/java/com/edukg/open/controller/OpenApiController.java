@@ -127,6 +127,7 @@ public class OpenApiController {
         if (subject.equals("math")) {
             JSONArray content = new JSONArray();
             JSONArray property = new JSONArray();
+            String label = "";
             HttpPost httpPost = new HttpPost("http://39.97.172.123:28090" + "/server/getInstGraph");
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();
             nvps.add(new BasicNameValuePair("uri", uri));
@@ -152,6 +153,7 @@ public class OpenApiController {
                 JSONObject jsonObject = JSONObject.parseObject(body);
                 if (jsonObject.get("data") != null) {
                    property = jsonObject.getJSONObject("data").getJSONArray("property");
+                   label = jsonObject.getJSONObject("data").getString("label");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -159,6 +161,7 @@ public class OpenApiController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("content", content);
             jsonObject.put("property", property);
+            jsonObject.put("label", label);
             return Response.success(jsonObject);
         }
         String apiPath = "/api/wiki/infoByInstanceName?name=" + name + "&subject=" + subject;
