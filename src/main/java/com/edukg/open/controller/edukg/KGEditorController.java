@@ -65,7 +65,7 @@ public class KGEditorController {
         log.info(new Date().toString());
         String apiPath = "/extract/create_task/";
         JSONObject json = new JSONObject();
-        if(!(resourceType.equals("PDF") || resourceType.equals("EPUB"))) {
+        if(!(resourceType.contains("PDF") || resourceType.equals("EPUB"))) {
             throw new BusinessException(-1, "资源格式不支持，请重试！");
         }
         json.put("name", name);
