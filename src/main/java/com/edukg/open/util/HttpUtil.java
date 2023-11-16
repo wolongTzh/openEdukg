@@ -21,8 +21,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.ServletOutputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -189,6 +189,40 @@ public class HttpUtil {
         // 判断网络连接状态码是否正常(0--200都是正常)
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             result = EntityUtils.toString(response.getEntity(), "utf-8");
+        }
+        // 释放链接
+        response.close();
+        return result;
+    }
+
+    /**
+     * get请求传输数据
+     *
+     * @param url
+     * @return
+     * @throws ClientProtocolException
+     * @throws IOException
+     */
+    public static String sendGetFile(String url, ServletOutputStream outputStream) throws ClientProtocolException, IOException {
+        String result = "success";
+
+        // 创建httpclient对象
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        // 创建get方式请求对象
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.addHeader("Content-type", "application/json");
+        // 通过请求对象获取响应对象
+        CloseableHttpResponse response = httpClient.execute(httpGet);
+        // 获取结果实体
+        // 判断网络连接状态码是否正常(0--200都是正常)
+        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            InputStream inputStream = response.getEntity().getContent();
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
         }
         // 释放链接
         response.close();

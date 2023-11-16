@@ -3,8 +3,6 @@ package com.edukg.open.controller.edukg;
 import com.alibaba.fastjson.JSONObject;
 import com.edukg.open.base.BusinessException;
 import com.edukg.open.base.Response;
-import com.edukg.open.config.LimitRequest;
-import com.edukg.open.config.SystemControllerLog;
 import com.edukg.open.model.param.StartExtractionParam;
 import com.edukg.open.model.param.savePartitionParam;
 import com.edukg.open.model.param.SaveGraphParam;
@@ -19,7 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 
 /**
@@ -274,6 +275,68 @@ public class KGEditorController {
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success((String) jsonObject.get("message"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
+
+    /**
+     * 7.获取pdf  http://39.97.172.123:8001/extract/get_pdf/
+     *
+     * @param request
+     * @param userId
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "获取pdf", notes = "获取pdf", httpMethod = "GET")
+    @RequestMapping(value = "get_pdf", method = RequestMethod.GET)
+//    @SystemControllerLog(description = "保存图谱，用于校对")
+//    @LimitRequest()
+    public Response<String> getPdf(HttpServletRequest request,
+                                   @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
+                                   @ApiParam(value = "任务id", required = true) @RequestParam("id") String id, HttpServletResponse response) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /getPdf -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/get_pdf?userId=" + userId + "&id=" + id;
+        log.info("apiPath : " + apiPath);
+        String body = HttpUtil.sendGetFile(baseUrl + ":8001" + apiPath, response.getOutputStream());
+        try {
+            return Response.success(body);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
+
+    /**
+     * 7.获取进度  http://39.97.172.123:8001/extract/get_progress/
+     *
+     * @param request
+     * @param userId
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "获取进度", notes = "获取进度", httpMethod = "GET")
+    @RequestMapping(value = "view_progress", method = RequestMethod.GET)
+//    @SystemControllerLog(description = "保存图谱，用于校对")
+//    @LimitRequest()
+    public Response<JSONObject> getProgress(HttpServletRequest request,
+                                       @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
+                                       @ApiParam(value = "任务id", required = true) @RequestParam("id") String id) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /getProgress -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/view_progress?userId=" + userId + "&id=" + id;
+        log.info("apiPath : " + apiPath);
+        String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
+        log.info("body : " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success(jsonObject.getJSONObject("data"));
         } catch (Exception e) {
             e.printStackTrace();
         }
