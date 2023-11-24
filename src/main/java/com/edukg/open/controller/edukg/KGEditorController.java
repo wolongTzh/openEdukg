@@ -342,4 +342,36 @@ public class KGEditorController {
         }
         return Response.fail(-1, "请求异常");
     }
+
+    /**
+     * 7.获取三元组  http://39.97.172.123:8001/extract/get_triples/
+     *
+     * @param request
+     * @param userId
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "获取三元组", notes = "获取三元组", httpMethod = "GET")
+    @RequestMapping(value = "get_triples", method = RequestMethod.GET)
+//    @SystemControllerLog(description = "保存图谱，用于校对")
+//    @LimitRequest()
+    public Response<JSONObject> getTriple(HttpServletRequest request,
+                                            @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
+                                            @ApiParam(value = "任务id", required = true) @RequestParam("id") String id) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /getProgress -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/get_triples?userId=" + userId + "&id=" + id;
+        log.info("apiPath : " + apiPath);
+        String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
+        log.info("body : " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success(jsonObject.getJSONObject("data"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
 }
