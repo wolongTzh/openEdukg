@@ -368,7 +368,7 @@ public class KGEditorController {
         log.info("body : " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
-            return Response.success(jsonObject.getJSONObject("data"));
+            return Response.success(jsonObject.getJSONObject("triples"));
         } catch (Exception e) {
             e.printStackTrace();
         }
