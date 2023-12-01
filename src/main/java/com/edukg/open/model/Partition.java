@@ -18,5 +18,5 @@ public class Partition {
 
     List<Partition> children;
 
-    boolean isLeaf;
+    Boolean isLeaf;
 }

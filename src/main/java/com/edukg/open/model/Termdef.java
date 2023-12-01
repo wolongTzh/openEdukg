@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class Termdef {
 
-    String name;
+    String title;
 
     String content;
 
@@ -21,5 +21,5 @@ public class Termdef {
 
     List<Termdef> children;
 
-    boolean isLeaf;
+    Boolean isLeaf;
 }
