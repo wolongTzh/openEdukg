@@ -1,5 +1,6 @@
 package com.edukg.open.model.param;
 
+import com.edukg.open.model.Operation;
 import com.edukg.open.model.Termdef;
 import lombok.Data;
 
@@ -20,4 +21,6 @@ public class SaveGraphParam {
     String taskId;
 
     List<Termdef> termdef;
+
+    List<Operation> operation;
 }

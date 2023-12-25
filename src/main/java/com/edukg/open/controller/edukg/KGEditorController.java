@@ -1,11 +1,14 @@
 package com.edukg.open.controller.edukg;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edukg.open.base.BusinessException;
 import com.edukg.open.base.Response;
+import com.edukg.open.model.Properties;
+import com.edukg.open.model.param.EditPropertiesParam;
+import com.edukg.open.model.param.SaveGraphParam;
 import com.edukg.open.model.param.StartExtractionParam;
 import com.edukg.open.model.param.savePartitionParam;
-import com.edukg.open.model.param.SaveGraphParam;
 import com.edukg.open.util.HttpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,9 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Date;
 
 /**
@@ -60,6 +61,11 @@ public class KGEditorController {
                                            @ApiParam(value = "请输入领域信息", required = true) @RequestParam("field") String field,
                                            @ApiParam(value = "资源格式", required = true) @RequestParam("resourceType") String resourceType,
                                            @ApiParam(value = "请目录起始页码", required = true) @RequestParam("catalogBeginPage") int catalogBeginPage,
+                                           @ApiParam(value = "标题", required = true) @RequestParam("title") String title,
+                                           @ApiParam(value = "isbn号", required = true) @RequestParam("isbn") String isbn,
+                                           @ApiParam(value = "作者", required = true) @RequestParam("author") String author,
+                                           @ApiParam(value = "出版日期", required = true) @RequestParam("publishDate") String publishDate,
+                                           @ApiParam(value = "出版人", required = true) @RequestParam("publisher") String publisher,
                                            @ApiParam(value = "请目录终止页码", required = true) @RequestParam("catalogEndPage") int catalogEndPage) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /createTask -");
@@ -73,6 +79,11 @@ public class KGEditorController {
         json.put("userId", userId);
         json.put("field", field);
         json.put("resourceType", resourceType);
+        json.put("title", title);
+        json.put("isbn", isbn);
+        json.put("author", author);
+        json.put("publishDate", publishDate);
+        json.put("publisher", publisher);
         json.put("catalogBeginPage", catalogBeginPage);
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
@@ -269,6 +280,7 @@ public class KGEditorController {
         json.put("userId", param.getUserId());
         json.put("id", param.getTaskId());
         json.put("termdef", param.getTermdef());
+        json.put("operation", param.getOperation());
 //        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
@@ -369,6 +381,40 @@ public class KGEditorController {
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("triples"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
+
+    /**
+     * 10. 编辑教材信息  http://39.97.172.123:8001/extract/edit_properties/
+     *
+     * @param request
+     * @param param
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "编辑教材信息", notes = "编辑教材信息", httpMethod = "POST")
+    @RequestMapping(value = "editProperties", method = RequestMethod.POST)
+//    @SystemControllerLog(description = "编辑教材信息")
+//    @LimitRequest()
+    public Response<String> editProperties(HttpServletRequest request,
+                                      @ApiParam(value = "请输入用户id", required = true) @RequestBody EditPropertiesParam param) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /editProperties -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/edit_properties/";
+        JSONObject json = new JSONObject();
+        json.put("userId", param.getUserId());
+        json.put("id", param.getTaskId());
+        json.put("properties", param.getProperties());
+//        log.info("json = " + JSONObject.toJSONString(json));
+        String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
+        log.info("body = " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success((String) jsonObject.get("message"));
         } catch (Exception e) {
             e.printStackTrace();
         }
