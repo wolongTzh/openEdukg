@@ -14,7 +14,7 @@ import lombok.Data;
 public class EditPropertiesParam {
 
     String userId;
-    String taskId;
+    String id;
 
     Properties properties;
 }

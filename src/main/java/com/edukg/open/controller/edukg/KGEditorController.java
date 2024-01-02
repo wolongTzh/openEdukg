@@ -396,22 +396,53 @@ public class KGEditorController {
      * @throws IOException
      */
     @ApiOperation(value = "编辑教材信息", notes = "编辑教材信息", httpMethod = "POST")
-    @RequestMapping(value = "editProperties", method = RequestMethod.POST)
+    @RequestMapping(value = "edit_properties", method = RequestMethod.POST)
 //    @SystemControllerLog(description = "编辑教材信息")
 //    @LimitRequest()
     public Response<String> editProperties(HttpServletRequest request,
                                       @ApiParam(value = "请输入用户id", required = true) @RequestBody EditPropertiesParam param) throws IOException {
 //        checkSession(request);
-        log.info("请求接口记录 - /editProperties -");
+        log.info("请求接口记录 - /edit_properties -");
         log.info(new Date().toString());
         String apiPath = "/extract/edit_properties/";
         JSONObject json = new JSONObject();
         json.put("userId", param.getUserId());
-        json.put("id", param.getTaskId());
+        json.put("id", param.getId());
         json.put("properties", param.getProperties());
 //        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success((String) jsonObject.get("message"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
+
+    /**
+     * 11. 删除任务  http://39.97.172.123:8001/extract/delete_task/
+     *
+     * @param request
+     * @param userId、id
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "删除任务", notes = "删除任务", httpMethod = "GET")
+    @RequestMapping(value = "delete_task", method = RequestMethod.GET)
+//    @SystemControllerLog(description = "编辑教材信息")
+//    @LimitRequest()
+    public Response<String> deleteTask(HttpServletRequest request,
+                                       @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
+                                       @ApiParam(value = "任务id", required = true) @RequestParam("id") String id) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /delete_task -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/delete_task?userId=" + userId + "&id=" + id;
+        log.info("apiPath : " + apiPath);
+        String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
+        log.info("body : " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success((String) jsonObject.get("message"));
