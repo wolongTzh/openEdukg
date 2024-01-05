@@ -434,12 +434,11 @@ public class KGEditorController {
 //    @SystemControllerLog(description = "编辑教材信息")
 //    @LimitRequest()
     public Response<String> deleteTask(HttpServletRequest request,
-                                       @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId,
-                                       @ApiParam(value = "任务id", required = false) @RequestParam("id") String id) throws IOException {
+                                       @ApiParam(value = "请输入用户id", required = true) @RequestParam("userId") String userId) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /delete_task -");
         log.info(new Date().toString());
-        String apiPath = "/extract/delete_task?userId=" + userId + "&id=" + id;
+        String apiPath = "/extract/delete_task?userId=" + userId + "&id=" + "334";
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
         log.info("body : " + body);
