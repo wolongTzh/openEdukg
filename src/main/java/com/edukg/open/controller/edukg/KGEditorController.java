@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edukg.open.base.BusinessException;
 import com.edukg.open.base.Response;
 import com.edukg.open.model.Properties;
-import com.edukg.open.model.param.EditPropertiesParam;
-import com.edukg.open.model.param.SaveGraphParam;
-import com.edukg.open.model.param.StartExtractionParam;
-import com.edukg.open.model.param.savePartitionParam;
+import com.edukg.open.model.param.*;
 import com.edukg.open.util.HttpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -443,6 +440,75 @@ public class KGEditorController {
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
         log.info("body : " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success((String) jsonObject.get("message"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
+
+    /**
+     * 12. 编辑教材信息  http://39.97.172.123:8001/extract/edit_properties/
+     *
+     * @param request
+     * @param param
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "编辑教材信息", notes = "编辑教材信息", httpMethod = "POST")
+    @RequestMapping(value = "start_relation_extraction", method = RequestMethod.POST)
+//    @SystemControllerLog(description = "编辑教材信息")
+//    @LimitRequest()
+    public Response<String> startRelationExtraction(HttpServletRequest request,
+                                           @ApiParam(value = "请输入用户id", required = true) @RequestBody StartRelationExtractionParam param) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /start_relation_extraction -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/start_relation_extraction/";
+        JSONObject json = new JSONObject();
+        json.put("userId", param.getUserId());
+        json.put("id", param.getId());
+        json.put("relation", param.getRelation());
+        System.out.println(json);
+//        log.info("json = " + JSONObject.toJSONString(json));
+        String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
+        log.info("body = " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success((String) jsonObject.get("message"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
+
+    /**
+     * 13. 保存三元组  http://39.97.172.123:8001/extract/save_triples/
+     *
+     * @param request
+     * @param param
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "保存三元组", notes = "保存三元组", httpMethod = "POST")
+    @RequestMapping(value = "save_triples", method = RequestMethod.POST)
+//    @SystemControllerLog(description = "编辑教材信息")
+//    @LimitRequest()
+    public Response<String> saveTriples(HttpServletRequest request,
+                                                    @ApiParam(value = "请输入用户id", required = true) @RequestBody SaveTriplesParam param) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /save_triples -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/save_triples/";
+        JSONObject json = new JSONObject();
+        json.put("userId", param.getUserId());
+        json.put("id", param.getId());
+        json.put("triples", param.getTriples());
+//        log.info("json = " + JSONObject.toJSONString(json));
+        String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
+        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success((String) jsonObject.get("message"));
