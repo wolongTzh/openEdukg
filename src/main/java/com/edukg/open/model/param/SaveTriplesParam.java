@@ -17,7 +17,7 @@ public class SaveTriplesParam {
 
     String userId;
 
-    String id;
+    String taskId;
 
     Triples triples;
 }

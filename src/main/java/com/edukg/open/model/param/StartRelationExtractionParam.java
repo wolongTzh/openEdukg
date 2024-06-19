@@ -16,7 +16,7 @@ import java.util.List;
 public class StartRelationExtractionParam {
 
     String userId;
-    String id;
+    String taskId;
 
     List<List<String>> relation;
 }

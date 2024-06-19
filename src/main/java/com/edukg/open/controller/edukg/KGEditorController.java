@@ -469,7 +469,7 @@ public class KGEditorController {
         String apiPath = "/extract/start_relation_extraction/";
         JSONObject json = new JSONObject();
         json.put("userId", param.getUserId());
-        json.put("id", param.getId());
+        json.put("id", param.getTaskId());
         json.put("relation", param.getRelation());
         System.out.println(json);
 //        log.info("json = " + JSONObject.toJSONString(json));
@@ -504,7 +504,7 @@ public class KGEditorController {
         String apiPath = "/extract/save_triples/";
         JSONObject json = new JSONObject();
         json.put("userId", param.getUserId());
-        json.put("id", param.getId());
+        json.put("id", param.getTaskId());
         json.put("triples", param.getTriples());
 //        log.info("json = " + JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
