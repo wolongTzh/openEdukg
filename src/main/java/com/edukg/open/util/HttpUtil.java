@@ -195,8 +195,8 @@ public class HttpUtil {
         return result;
     }
 
-    public static String getFileCache(ServletOutputStream outputStream) throws IOException {
-        FileInputStream inputStream = new FileInputStream("file.pdf");
+    public static String getFileCache(ServletOutputStream outputStream, String name) throws IOException {
+        FileInputStream inputStream = new FileInputStream("./cache/" + name);
         byte[] buffer = new byte[1024];
         int bytesRead;
         long start = System.currentTimeMillis();
@@ -218,7 +218,7 @@ public class HttpUtil {
      */
     public static String sendGetFile(String name, String url, ServletOutputStream outputStream) throws ClientProtocolException, IOException {
         if(new File("./cache/" + name).exists()) {
-            return getFileCache(outputStream);
+            return getFileCache(outputStream, name);
         }
         String result = "success";
 
