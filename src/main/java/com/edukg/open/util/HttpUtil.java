@@ -200,12 +200,6 @@ public class HttpUtil {
         byte[] buffer = new byte[1024];
         int bytesRead;
         long start = System.currentTimeMillis();
-        OutputStream testOutputStream = new FileOutputStream("test.pdf");
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            testOutputStream.write(buffer, 0, bytesRead);
-        }
-        long testEnd = System.currentTimeMillis();
-        System.out.println("test get stream time = " + (testEnd - start));
         while ((bytesRead = inputStream.read(buffer)) != -1) {
             outputStream.write(buffer, 0, bytesRead);
         }
