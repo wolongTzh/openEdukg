@@ -195,6 +195,19 @@ public class HttpUtil {
         return result;
     }
 
+    public static String getFileCache(ServletOutputStream outputStream) throws IOException {
+        FileInputStream inputStream = new FileInputStream("file.pdf");
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        long start = System.currentTimeMillis();
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("get stream time = " + (end - start));
+        return "success";
+    }
+
     /**
      * get请求传输数据
      *
@@ -203,7 +216,10 @@ public class HttpUtil {
      * @throws ClientProtocolException
      * @throws IOException
      */
-    public static String sendGetFile(String url, ServletOutputStream outputStream) throws ClientProtocolException, IOException {
+    public static String sendGetFile(String name, String url, ServletOutputStream outputStream) throws ClientProtocolException, IOException {
+        if(new File("./cache/" + name).exists()) {
+            return getFileCache(outputStream);
+        }
         String result = "success";
 
         // 创建httpclient对象
@@ -213,17 +229,31 @@ public class HttpUtil {
         HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Content-type", "application/json");
         // 通过请求对象获取响应对象
+        long start = System.currentTimeMillis();
         CloseableHttpResponse response = httpClient.execute(httpGet);
+        long end = System.currentTimeMillis();
+        System.out.println("hanming time = " + (end - start));
         // 获取结果实体
         // 判断网络连接状态码是否正常(0--200都是正常)
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             InputStream inputStream = response.getEntity().getContent();
             byte[] buffer = new byte[1024];
             int bytesRead;
+            int count = 0;
+            OutputStream os = new FileOutputStream("./cache/" + name);
             while ((bytesRead = inputStream.read(buffer)) != -1) {
+                count += 1;
+                long innerEnd = System.currentTimeMillis();
                 outputStream.write(buffer, 0, bytesRead);
+                os.write(buffer, 0, bytesRead);
+                long innerEnd2 = System.currentTimeMillis();
+//                System.out.println("inner time = " + (innerEnd2 - innerEnd));
             }
+            os.close();
+            System.out.println("count = " + count);
         }
+        long end2 = System.currentTimeMillis();
+        System.out.println("get stream time = " + (end2 - end));
         // 释放链接
         response.close();
         return result;

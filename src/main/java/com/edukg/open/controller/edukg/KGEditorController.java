@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 
 /**
@@ -311,7 +313,8 @@ public class KGEditorController {
         log.info(new Date().toString());
         String apiPath = "/extract/get_pdf?userId=" + userId + "&id=" + id;
         log.info("apiPath : " + apiPath);
-        String body = HttpUtil.sendGetFile(baseUrl + ":8001" + apiPath, response.getOutputStream());
+        String body = HttpUtil.sendGetFile(userId + "-" + id + ".pdf", baseUrl + ":8001" + apiPath, response.getOutputStream());
+
         try {
             return Response.success(body);
         } catch (Exception e) {

@@ -28,6 +28,7 @@ public class Response<T> implements Serializable {
         result.setCode("0");
         result.setMsg("成功");
         result.setData(object);
+        System.out.println("return!!!!!!");
         return result;
     }
 
