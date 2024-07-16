@@ -139,7 +139,7 @@ public class HttpUtil {
             String key = entry.getKey();
             Object value = entry.getValue();
             if(key.equals("file")) {
-                File file = new File("./cache/" + tempName);
+                File file = new File("/data1/project/openEdukg/cache/" + tempName);
                 MultipartFile multipartFile = (MultipartFile)value;
                 multipartFile.transferTo(file);
                 builder.addBinaryBody("file", file, ContentType.MULTIPART_FORM_DATA, ((MultipartFile)value).getOriginalFilename());
@@ -196,7 +196,7 @@ public class HttpUtil {
     }
 
     public static String getFileCache(ServletOutputStream outputStream, String name) throws IOException {
-        FileInputStream inputStream = new FileInputStream("./cache/" + name);
+        FileInputStream inputStream = new FileInputStream("/data1/project/openEdukg/cache/" + name);
         byte[] buffer = new byte[1024];
         int bytesRead;
         long start = System.currentTimeMillis();
@@ -217,7 +217,7 @@ public class HttpUtil {
      * @throws IOException
      */
     public static String sendGetFile(String name, String url, ServletOutputStream outputStream) throws ClientProtocolException, IOException {
-        if(new File("./cache/" + name).exists()) {
+        if(new File("/data1/project/openEdukg/cache/" + name).exists()) {
             return getFileCache(outputStream, name);
         }
         String result = "success";
@@ -240,7 +240,7 @@ public class HttpUtil {
             byte[] buffer = new byte[102400];
             int bytesRead;
             int count = 0;
-            OutputStream os = new FileOutputStream("./cache/" + name);
+            OutputStream os = new FileOutputStream("/data1/project/openEdukg/cache/" + name);
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 count += 1;
                 long innerEnd = System.currentTimeMillis();
