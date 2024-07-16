@@ -204,7 +204,7 @@ public class HttpUtil {
             outputStream.write(buffer, 0, bytesRead);
         }
         long end = System.currentTimeMillis();
-        System.out.println("get stream time = " + (end - start));
+        System.out.println("get cache stream time = " + (end - start));
         return "success";
     }
 
