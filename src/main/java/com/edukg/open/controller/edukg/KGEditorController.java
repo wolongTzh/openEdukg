@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -87,10 +88,17 @@ public class KGEditorController {
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
         json.put("file", file);
-        String body = HttpUtil.sendPostDataByJsonWithFile(baseUrl + ":8001" + apiPath, json);
+        String body = HttpUtil.sendPostDataByJsonWithFile(baseUrl + ":8001" + apiPath, json, userId + "-" + name + ".pdf");
         log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
+            String id = jsonObject.getJSONObject("data").getString("id");
+            String cacheName = userId + "-" + id;
+            File oldFile = new File("./cache/" + userId + "-" + name + ".pdf");
+            File newFile = new File("./cache/" + userId + "-" + id + ".pdf");
+            if(oldFile.exists()) {
+                oldFile.renameTo(newFile);
+            }
             return Response.success(jsonObject.getJSONObject("data"));
         } catch (Exception e) {
             e.printStackTrace();

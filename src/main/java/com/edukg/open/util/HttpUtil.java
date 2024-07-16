@@ -124,7 +124,7 @@ public class HttpUtil {
      * @throws ClientProtocolException
      * @throws IOException
      */
-    public static String sendPostDataByJsonWithFile(String url, JSONObject json) throws ClientProtocolException, IOException {
+    public static String sendPostDataByJsonWithFile(String url, JSONObject json, String tempName) throws ClientProtocolException, IOException {
         String result = "";
 
         // 创建httpclient对象
@@ -139,7 +139,7 @@ public class HttpUtil {
             String key = entry.getKey();
             Object value = entry.getValue();
             if(key.equals("file")) {
-                File file = File.createTempFile("temp", "pdf");
+                File file = new File("./cache/" + tempName);
                 MultipartFile multipartFile = (MultipartFile)value;
                 multipartFile.transferTo(file);
                 builder.addBinaryBody("file", file, ContentType.MULTIPART_FORM_DATA, ((MultipartFile)value).getOriginalFilename());
@@ -237,7 +237,7 @@ public class HttpUtil {
         // 判断网络连接状态码是否正常(0--200都是正常)
         if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
             InputStream inputStream = response.getEntity().getContent();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[102400];
             int bytesRead;
             int count = 0;
             OutputStream os = new FileOutputStream("./cache/" + name);
