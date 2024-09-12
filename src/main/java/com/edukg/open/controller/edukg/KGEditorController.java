@@ -88,7 +88,10 @@ public class KGEditorController {
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
         json.put("file", file);
+        long start = System.currentTimeMillis();
         String body = HttpUtil.sendPostDataByJsonWithFile(baseUrl + ":8001" + apiPath, json, userId + "-" + name + ".pdf");
+        long end = System.currentTimeMillis();
+        System.out.println("create task time = " + (end - start));
         log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
