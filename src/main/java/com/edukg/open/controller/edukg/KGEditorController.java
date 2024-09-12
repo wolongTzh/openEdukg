@@ -69,6 +69,7 @@ public class KGEditorController {
                                            @ApiParam(value = "请目录终止页码", required = true) @RequestParam("catalogEndPage") int catalogEndPage) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /createTask -");
+        long start = System.currentTimeMillis();
         log.info(new Date().toString());
         String apiPath = "/extract/create_task/";
         JSONObject json = new JSONObject();
@@ -88,10 +89,9 @@ public class KGEditorController {
         json.put("catalogEndPage", catalogEndPage);
         log.info("json = " + JSONObject.toJSONString(json));
         json.put("file", file);
-        long start = System.currentTimeMillis();
+
         String body = HttpUtil.sendPostDataByJsonWithFile(baseUrl + ":8001" + apiPath, json, userId + "-" + name + ".pdf");
-        long end = System.currentTimeMillis();
-        System.out.println("create task time = " + (end - start));
+
         log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
@@ -101,6 +101,8 @@ public class KGEditorController {
             if(oldFile.exists()) {
                 oldFile.renameTo(newFile);
             }
+            long end = System.currentTimeMillis();
+            System.out.println("create task time = " + (end - start));
             return Response.success(jsonObject.getJSONObject("data"));
         } catch (Exception e) {
             e.printStackTrace();
