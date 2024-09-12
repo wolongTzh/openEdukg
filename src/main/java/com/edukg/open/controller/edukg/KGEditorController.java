@@ -93,8 +93,8 @@ public class KGEditorController {
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             String id = jsonObject.getJSONObject("data").getString("task_id");
-            File oldFile = new File("/data1/project/openEdukg/cache/" + userId + "-" + name + ".pdf");
-            File newFile = new File("/data1/project/openEdukg/cache/" + userId + "-" + id + ".pdf");
+            File oldFile = new File("/home/tz/project/open/openEdukg/cache/" + userId + "-" + name + ".pdf");
+            File newFile = new File("/home/tz/project/open/openEdukg/cache/" + userId + "-" + id + ".pdf");
             if(oldFile.exists()) {
                 oldFile.renameTo(newFile);
             }

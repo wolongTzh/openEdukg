@@ -240,7 +240,7 @@ public class HttpUtil {
             byte[] buffer = new byte[102400];
             int bytesRead;
             int count = 0;
-            OutputStream os = new FileOutputStream("/data1/project/openEdukg/cache/" + name);
+            OutputStream os = new FileOutputStream("/home/tz/project/open/openEdukg/cache/" + name);
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 count += 1;
                 long innerEnd = System.currentTimeMillis();
