@@ -139,7 +139,7 @@ public class HttpUtil {
             String key = entry.getKey();
             Object value = entry.getValue();
             if(key.equals("file")) {
-                File file = new File("/data1/project/openEdukg/cache/" + tempName);
+                File file = new File("/home/tz/project/open/openEdukg/cache/" + tempName);
                 MultipartFile multipartFile = (MultipartFile)value;
                 multipartFile.transferTo(file);
                 builder.addBinaryBody("file", file, ContentType.MULTIPART_FORM_DATA, ((MultipartFile)value).getOriginalFilename());
