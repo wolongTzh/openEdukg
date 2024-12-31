@@ -503,7 +503,7 @@ public class KGEditorController {
      * 13. 保存三元组  http://39.97.172.123:8001/extract/save_triples/
      *
      * @param request
-     * @param param
+     * @param json
      * @return
      * @throws IOException
      */
@@ -512,16 +512,17 @@ public class KGEditorController {
 //    @SystemControllerLog(description = "编辑教材信息")
 //    @LimitRequest()
     public Response<String> saveTriples(HttpServletRequest request,
-                                                    @ApiParam(value = "请输入用户id", required = true) @RequestBody SaveTriplesParam param) throws IOException {
+                                                    @ApiParam(value = "请输入用户id", required = true) @RequestBody JSONObject json) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /save_triples -");
         log.info(new Date().toString());
         String apiPath = "/extract/save_triples/";
-        JSONObject json = new JSONObject();
-        json.put("userId", param.getUserId());
-        json.put("id", param.getTaskId());
-        json.put("triples", param.getTriples());
+//        JSONObject json = new JSONObject();
+//        json.put("userId", param.getUserId());
+//        json.put("id", param.getTaskId());
+//        json.put("triples", param.getTriples());
 //        log.info("json = " + JSONObject.toJSONString(json));
+        System.out.println(JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
         try {
