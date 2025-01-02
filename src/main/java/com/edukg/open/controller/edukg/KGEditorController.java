@@ -533,4 +533,39 @@ public class KGEditorController {
         }
         return Response.fail(-1, "请求异常");
     }
+
+    /**
+     * 13. 保存三元组  http://39.97.172.123:8001/extract/load_graph/
+     *
+     * @param request
+     * @param json
+     * @return
+     * @throws IOException
+     */
+    @ApiOperation(value = "保存三元组", notes = "保存三元组", httpMethod = "POST")
+    @RequestMapping(value = "load_graph", method = RequestMethod.POST)
+//    @SystemControllerLog(description = "编辑教材信息")
+//    @LimitRequest()
+    public Response<String> load_graph(HttpServletRequest request,
+                                        @ApiParam(value = "请输入用户id", required = true) @RequestBody JSONObject json) throws IOException {
+//        checkSession(request);
+        log.info("请求接口记录 - /load_graph -");
+        log.info(new Date().toString());
+        String apiPath = "/extract/load_graph/";
+//        JSONObject json = new JSONObject();
+//        json.put("userId", param.getUserId());
+//        json.put("id", param.getTaskId());
+//        json.put("triples", param.getTriples());
+//        log.info("json = " + JSONObject.toJSONString(json));
+        System.out.println(JSONObject.toJSONString(json));
+        String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
+        log.info("body = " + body);
+        try {
+            JSONObject jsonObject = JSONObject.parseObject(body);
+            return Response.success((String) jsonObject.get("message"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Response.fail(-1, "请求异常");
+    }
 }
