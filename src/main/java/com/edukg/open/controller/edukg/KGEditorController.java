@@ -557,10 +557,11 @@ public class KGEditorController {
 //        json.put("id", param.getTaskId());
 //        json.put("triples", param.getTriples());
 //        log.info("json = " + JSONObject.toJSONString(json));
+        System.out.println(JSONObject.toJSONString(json));
         json.put("id", json.get("taskId"));
         System.out.println(JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
-        log.info("body = " + body);
+//        log.info("body = " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success((String) jsonObject.get("message"));
