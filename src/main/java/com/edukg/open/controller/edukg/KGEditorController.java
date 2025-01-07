@@ -547,7 +547,7 @@ public class KGEditorController {
 //    @SystemControllerLog(description = "编辑教材信息")
 //    @LimitRequest()
     public Response<String> load_graph(HttpServletRequest request,
-                                        @ApiParam(value = "请输入用户id", required = true) @RequestBody JSONObject json) throws IOException {
+                                        @ApiParam(value = "请输入用户id", required = true)  @RequestBody JSONObject json) throws IOException {
 //        checkSession(request);
         log.info("请求接口记录 - /load_graph -");
         log.info(new Date().toString());
@@ -557,6 +557,7 @@ public class KGEditorController {
 //        json.put("id", param.getTaskId());
 //        json.put("triples", param.getTriples());
 //        log.info("json = " + JSONObject.toJSONString(json));
+        json.put("id", json.get("taskId"));
         System.out.println(JSONObject.toJSONString(json));
         String body = HttpUtil.sendPostDataByJson(baseUrl + ":8001" + apiPath, JSONObject.toJSONString(json));
         log.info("body = " + body);
