@@ -389,7 +389,7 @@ public class KGEditorController {
         String apiPath = "/extract/get_triples?userId=" + userId + "&id=" + id;
         log.info("apiPath : " + apiPath);
         String body = HttpUtil.sendGetData(baseUrl + ":8001" + apiPath);
-        log.info("body : " + body);
+//        log.info("body : " + body);
         try {
             JSONObject jsonObject = JSONObject.parseObject(body);
             return Response.success(jsonObject.getJSONObject("triples"));
@@ -517,6 +517,7 @@ public class KGEditorController {
         log.info("请求接口记录 - /save_triples -");
         log.info(new Date().toString());
         String apiPath = "/extract/save_triples/";
+        json.put("id", json.get("taskId"));
 //        JSONObject json = new JSONObject();
 //        json.put("userId", param.getUserId());
 //        json.put("id", param.getTaskId());
