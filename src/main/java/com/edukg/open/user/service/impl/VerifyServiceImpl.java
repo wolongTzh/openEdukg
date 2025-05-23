@@ -45,7 +45,7 @@ public class VerifyServiceImpl extends ServiceImpl<UserVerifyMapper, UserVerify>
             // 签名
             String sign = Md5.md5((appId + secretKey + timestamp).getBytes());
             // 消息内容
-            String content = "【基础教育知识服务平台】欢迎使用平台服务，您的验证码是：" + smsCode + "，有效时间五分钟。如非本人操作请忽略。";
+            String content = "【清华大学】欢迎使用基础教育知识服务平台，您的验证码是：" + smsCode + "，有效时间五分钟。如非本人操作请忽略。";
             String res="";
             StringBuffer buffer = new StringBuffer();
             String requestUrl = host + "/inter/sms/mt" + "?appKey=" + appId +
